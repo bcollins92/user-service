@@ -1,4 +1,4 @@
-package com.bc92.userservice.security;
+package com.bc92.userservice.authn;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,6 +14,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
+import com.bc92.userservice.config.UserServiceConstants;
 import com.bc92.userservice.models.LoginRequest;
 import com.bc92.userservice.utilities.Utility;
 
@@ -21,19 +22,12 @@ public class LoginEndpointFilter extends OncePerRequestFilter {
 
   private final static Logger logger = LoggerFactory.getLogger(LoginEndpointFilter.class);
 
-  private final String loginUrl;
 
   private final AuthenticationProvider authenticationProvidor;
 
-  public LoginEndpointFilter(final AuthenticationProvider authenticationProvidor,
-      final String loginUrl) {
-
-    if (null == loginUrl || loginUrl.isEmpty()) {
-      throw new IllegalArgumentException("Login Url cannot be null or empty");
-    }
+  public LoginEndpointFilter(final AuthenticationProvider authenticationProvidor) {
 
     this.authenticationProvidor = authenticationProvidor;
-    this.loginUrl = loginUrl;
   }
 
   /**
@@ -43,17 +37,25 @@ public class LoginEndpointFilter extends OncePerRequestFilter {
   @Override
   protected boolean shouldNotFilter(final HttpServletRequest request) throws ServletException {
     return !(HttpMethod.POST.name().equals(request.getMethod())
-        && loginUrl.equals(request.getRequestURI()));
+        && UserServiceConstants.LOGIN_URI.equals(request.getRequestURI()));
   }
 
   // TODO - log failed attempts to login, for security monitoring
-
+  // TODO - improve logging - copy the logging in BasicAuthenticationFilter:
+  /*
+   * o.s.s.w.a.w.BasicAuthenticationFilter - Basic Authentication Authorization header found for
+   * user 'user' 07:42:43.456 [http-nio-8080-exec-6] DEBUG o.s.s.authentication.ProviderManager -
+   * Authentication attempt using
+   * org.springframework.security.authentication.dao.DaoAuthenticationProvider 07:42:43.543
+   * [http-nio-8080-exec-6] DEBUG o.s.s.w.a.w.BasicAuthenticationFilter - Authentication success: ..
+   * token, principle
+   */
   @Override
   protected void doFilterInternal(final HttpServletRequest request,
       final HttpServletResponse response, final FilterChain filterChain)
       throws ServletException, IOException {
 
-    logger.debug(">> Performing login {} {}", loginUrl, request.getRequestURI());
+    logger.debug(">> doFilterInternal()");
 
     LoginRequest loginRequest = this.getLoginRequest(request);
 
