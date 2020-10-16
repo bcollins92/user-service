@@ -22,6 +22,8 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessEvent
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.security.web.header.HeaderWriterFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.session.web.http.CookieSerializer;
+import org.springframework.session.web.http.DefaultCookieSerializer;
 import com.bc92.userservice.authn.CustomUsernamePasswordAuthenticationFilter;
 import com.bc92.userservice.authn.NoOpLoginSuccessHandler;
 import com.bc92.userservice.authn.NoOpLogoutSuccessHandler;
@@ -46,6 +48,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     http.csrf().disable();
     http.logout().disable();
 
+  }
+
+  @Bean
+  public CookieSerializer cookieSerializer() {
+      DefaultCookieSerializer serializer = new DefaultCookieSerializer();
+      serializer.setCookieName(UserServiceConstants.COOKIE_NAME);
+      return serializer;
   }
 
   private LogoutFilter logoutFilter() {

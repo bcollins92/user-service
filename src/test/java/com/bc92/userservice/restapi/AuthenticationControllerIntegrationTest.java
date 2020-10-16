@@ -25,8 +25,6 @@ class AuthenticationControllerIntegrationTest {
 
   private LoginRequest loginRequest;
 
-
-
   @BeforeEach
   public void setUp() {
     loginRequest = new LoginRequest("user", "password");

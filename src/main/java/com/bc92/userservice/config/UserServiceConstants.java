@@ -8,6 +8,6 @@ public interface UserServiceConstants {
 
   public static final String VALIDATE_TOKEN_URL = "/user-service/auth/validate";
 
-  public static final String COOKIE_NAME = "SESSION";
+  public static final String COOKIE_NAME = "BC92-SESSION";
 
 }
