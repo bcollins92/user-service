@@ -37,7 +37,7 @@ public class LoginEndpointFilter extends OncePerRequestFilter {
   @Override
   protected boolean shouldNotFilter(final HttpServletRequest request) throws ServletException {
     return !(HttpMethod.POST.name().equals(request.getMethod())
-        && UserServiceConstants.LOGIN_URI.equals(request.getRequestURI()));
+        && UserServiceConstants.LOGIN_URL.equals(request.getRequestURI()));
   }
 
   // TODO - log failed attempts to login, for security monitoring

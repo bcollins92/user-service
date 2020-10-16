@@ -14,18 +14,18 @@ public class AuthenticationController {
 
   private final static Logger logger = LoggerFactory.getLogger(AuthenticationController.class);
 
-  @PostMapping(UserServiceConstants.LOGIN_URI)
+  @PostMapping(UserServiceConstants.LOGIN_URL)
   public ResponseEntity<Void> login() {
     return new ResponseEntity<Void>(HttpStatus.OK);
   }
 
-  @PostMapping(UserServiceConstants.LOGOUT_URI)
+  @GetMapping(UserServiceConstants.LOGOUT_URL)
   public ResponseEntity<Void> logout() {
     return new ResponseEntity<Void>(HttpStatus.OK);
   }
 
-  @GetMapping("/restricted")
-  public ResponseEntity<Void> getRestricted() {
+  @GetMapping(UserServiceConstants.VALIDATE_TOKEN_URL)
+  public ResponseEntity<Void> validateToken() {
     return new ResponseEntity<Void>(HttpStatus.OK);
   }
 

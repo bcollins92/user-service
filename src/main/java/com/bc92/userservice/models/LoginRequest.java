@@ -4,6 +4,15 @@ public class LoginRequest {
   private String user;
   private String password;
 
+  public LoginRequest() {
+    // empty
+  }
+
+  public LoginRequest(final String user, final String password) {
+    this.user = user;
+    this.password = password;
+  }
+
   public String getUser() {
     return user;
   }

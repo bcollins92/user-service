@@ -26,13 +26,7 @@ import com.bc92.userservice.authn.CustomUsernamePasswordAuthenticationFilter;
 import com.bc92.userservice.authn.NoOpLoginSuccessHandler;
 import com.bc92.userservice.authn.NoOpLogoutSuccessHandler;
 
-/**
- * This class allows us to provide our own authentication configuration, buy overriding methods
- * which configure
- *
- * @author Brian
- *
- */
+
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -57,13 +51,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   private LogoutFilter logoutFilter() {
     LogoutFilter logoutFilter = new LogoutFilter(new NoOpLogoutSuccessHandler(), new SecurityContextLogoutHandler(),
         new LogoutSuccessEventPublishingLogoutHandler());
-    logoutFilter.setLogoutRequestMatcher(new AntPathRequestMatcher(UserServiceConstants.LOGOUT_URI, HttpMethod.GET.name()));
+    logoutFilter.setLogoutRequestMatcher(new AntPathRequestMatcher(UserServiceConstants.LOGOUT_URL, HttpMethod.GET.name()));
     return logoutFilter;
   }
 
   public UsernamePasswordAuthenticationFilter loginFilter(final AuthenticationManager authenticationManager) {
     CustomUsernamePasswordAuthenticationFilter loginFilter = new CustomUsernamePasswordAuthenticationFilter();
-    loginFilter.setRequiresAuthenticationRequestMatcher(new AntPathRequestMatcher(UserServiceConstants.LOGIN_URI, HttpMethod.POST.name()));
+    loginFilter.setRequiresAuthenticationRequestMatcher(new AntPathRequestMatcher(UserServiceConstants.LOGIN_URL, HttpMethod.POST.name()));
     loginFilter.setAuthenticationManager(authenticationManager);
     loginFilter.setAuthenticationSuccessHandler(new NoOpLoginSuccessHandler());
     return loginFilter;
@@ -87,6 +81,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     return new InMemoryUserDetailsManager(user);
   }
+
+  //@formatter:on
 
   @Bean
   public AuthenticationProvider authenticationProvider() {

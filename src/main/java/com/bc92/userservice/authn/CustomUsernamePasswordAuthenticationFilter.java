@@ -11,6 +11,13 @@ import org.springframework.web.client.HttpClientErrorException;
 import com.bc92.userservice.models.LoginRequest;
 import com.bc92.userservice.utilities.Utility;
 
+/**
+ * Extends UsernamePasswordAuthenticationFilter to convert the request body into a LoginRequest
+ * object and get login details from that
+ *
+ * @author Brian
+ *
+ */
 public class CustomUsernamePasswordAuthenticationFilter
     extends UsernamePasswordAuthenticationFilter {
 
