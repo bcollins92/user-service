@@ -7,24 +7,24 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.bc92.userservice.config.UserServiceConstants;
+import com.bc92.projectsdk.constants.UserServiceConstants;
 
 @RestController
 public class AuthenticationController {
 
   private final static Logger logger = LoggerFactory.getLogger(AuthenticationController.class);
 
-  @PostMapping(UserServiceConstants.LOGIN_URL)
+  @PostMapping(UserServiceConstants.LOGIN_PATH)
   public ResponseEntity<Void> login() {
     return new ResponseEntity<Void>(HttpStatus.OK);
   }
 
-  @GetMapping(UserServiceConstants.LOGOUT_URL)
+  @GetMapping(UserServiceConstants.LOGOUT_PATH)
   public ResponseEntity<Void> logout() {
     return new ResponseEntity<Void>(HttpStatus.OK);
   }
 
-  @GetMapping(UserServiceConstants.VALIDATE_TOKEN_URL)
+  @GetMapping(UserServiceConstants.VALIDATE_TOKEN_PATH)
   public ResponseEntity<Void> validateToken() {
     return new ResponseEntity<Void>(HttpStatus.OK);
   }

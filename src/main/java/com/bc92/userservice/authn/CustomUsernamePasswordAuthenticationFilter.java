@@ -8,8 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.client.HttpClientErrorException;
+import com.bc92.projectsdk.utils.JsonUtilities;
 import com.bc92.userservice.models.LoginRequest;
-import com.bc92.userservice.utilities.Utility;
 
 /**
  * Extends UsernamePasswordAuthenticationFilter to convert the request body into a LoginRequest
@@ -49,7 +49,7 @@ public class CustomUsernamePasswordAuthenticationFilter
         builder.append(currentLine);
       }
 
-      loginRequest = Utility.jsonToObject(builder.toString(), LoginRequest.class);
+      loginRequest = JsonUtilities.jsonToObject(builder.toString(), LoginRequest.class);
 
     } catch (IOException e) {
 

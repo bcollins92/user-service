@@ -11,9 +11,9 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import com.bc92.userservice.config.UserServiceConstants;
+import com.bc92.projectsdk.constants.UserServiceConstants;
+import com.bc92.projectsdk.utils.JsonUtilities;
 import com.bc92.userservice.models.LoginRequest;
-import com.bc92.userservice.utilities.Utility;
 
 @Import(AuthenticationControllerTestConfiguration.class)
 @SpringBootTest(properties = "spring.main.allow-bean-definition-overriding=true")
@@ -50,39 +50,39 @@ class AuthenticationControllerIntegrationTest {
 
     // 1. No token
     mvcResult = mvc.perform(MockMvcRequestBuilders
-        .get(UserServiceConstants.VALIDATE_TOKEN_URL))
+        .get(UserServiceConstants.VALIDATE_TOKEN_PATH))
         .andExpect(status().isForbidden()).andReturn();
 
     // 2. Anonymous token
     cookie = mvcResult.getResponse().getCookie(UserServiceConstants.COOKIE_NAME);
     mvc.perform(MockMvcRequestBuilders
-        .get(UserServiceConstants.VALIDATE_TOKEN_URL)
+        .get(UserServiceConstants.VALIDATE_TOKEN_PATH)
         .cookie(cookie))
         .andExpect(status().isForbidden());
 
     // 3. Login
     mvcResult = mvc.perform(MockMvcRequestBuilders
-                              .post(UserServiceConstants.LOGIN_URL)
-                              .content(Utility.objectToJson(loginRequest)))
+                              .post(UserServiceConstants.LOGIN_PATH)
+                              .content(JsonUtilities.objectToJson(loginRequest)))
                               .andExpect(status().isOk())
                               .andReturn();
 
     // 4. Valid Token
     cookie = mvcResult.getResponse().getCookie(UserServiceConstants.COOKIE_NAME);
     mvc.perform(MockMvcRequestBuilders
-        .get(UserServiceConstants.VALIDATE_TOKEN_URL)
+        .get(UserServiceConstants.VALIDATE_TOKEN_PATH)
         .cookie(cookie))
         .andExpect(status().isOk());
 
     // 5. Logout
     mvc.perform(MockMvcRequestBuilders
-        .get(UserServiceConstants.LOGOUT_URL)
+        .get(UserServiceConstants.LOGOUT_PATH)
         .cookie(cookie))
         .andExpect(status().isOk());
 
     // 6. Invalidated token
     mvc.perform(MockMvcRequestBuilders
-        .get(UserServiceConstants.VALIDATE_TOKEN_URL)
+        .get(UserServiceConstants.VALIDATE_TOKEN_PATH)
         .cookie(cookie))
         .andExpect(status().isForbidden());
 

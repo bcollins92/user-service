@@ -14,14 +14,13 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
-import com.bc92.userservice.config.UserServiceConstants;
+import com.bc92.projectsdk.constants.UserServiceConstants;
+import com.bc92.projectsdk.utils.JsonUtilities;
 import com.bc92.userservice.models.LoginRequest;
-import com.bc92.userservice.utilities.Utility;
 
 public class LoginEndpointFilter extends OncePerRequestFilter {
 
-  private final static Logger logger = LoggerFactory.getLogger(LoginEndpointFilter.class);
-
+  private static final Logger logger = LoggerFactory.getLogger(LoginEndpointFilter.class);
 
   private final AuthenticationProvider authenticationProvidor;
 
@@ -37,7 +36,7 @@ public class LoginEndpointFilter extends OncePerRequestFilter {
   @Override
   protected boolean shouldNotFilter(final HttpServletRequest request) throws ServletException {
     return !(HttpMethod.POST.name().equals(request.getMethod())
-        && UserServiceConstants.LOGIN_URL.equals(request.getRequestURI()));
+        && UserServiceConstants.LOGIN_PATH.equals(request.getRequestURI()));
   }
 
   // TODO - log failed attempts to login, for security monitoring
@@ -82,7 +81,7 @@ public class LoginEndpointFilter extends OncePerRequestFilter {
       builder.append(System.lineSeparator());
     }
 
-    return Utility.jsonToObject(builder.toString(), LoginRequest.class);
+    return JsonUtilities.jsonToObject(builder.toString(), LoginRequest.class);
   }
 
 }

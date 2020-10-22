@@ -24,6 +24,7 @@ import org.springframework.security.web.header.HeaderWriterFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.session.web.http.CookieSerializer;
 import org.springframework.session.web.http.DefaultCookieSerializer;
+import com.bc92.projectsdk.constants.UserServiceConstants;
 import com.bc92.userservice.authn.CustomUsernamePasswordAuthenticationFilter;
 import com.bc92.userservice.authn.NoOpLoginSuccessHandler;
 import com.bc92.userservice.authn.NoOpLogoutSuccessHandler;
@@ -60,13 +61,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   private LogoutFilter logoutFilter() {
     LogoutFilter logoutFilter = new LogoutFilter(new NoOpLogoutSuccessHandler(), new SecurityContextLogoutHandler(),
         new LogoutSuccessEventPublishingLogoutHandler());
-    logoutFilter.setLogoutRequestMatcher(new AntPathRequestMatcher(UserServiceConstants.LOGOUT_URL, HttpMethod.GET.name()));
+    logoutFilter.setLogoutRequestMatcher(new AntPathRequestMatcher(UserServiceConstants.LOGOUT_PATH, HttpMethod.GET.name()));
     return logoutFilter;
   }
 
   public UsernamePasswordAuthenticationFilter loginFilter(final AuthenticationManager authenticationManager) {
     CustomUsernamePasswordAuthenticationFilter loginFilter = new CustomUsernamePasswordAuthenticationFilter();
-    loginFilter.setRequiresAuthenticationRequestMatcher(new AntPathRequestMatcher(UserServiceConstants.LOGIN_URL, HttpMethod.POST.name()));
+    loginFilter.setRequiresAuthenticationRequestMatcher(new AntPathRequestMatcher(UserServiceConstants.LOGIN_PATH, HttpMethod.POST.name()));
     loginFilter.setAuthenticationManager(authenticationManager);
     loginFilter.setAuthenticationSuccessHandler(new NoOpLoginSuccessHandler());
     return loginFilter;
