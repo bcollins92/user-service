@@ -12,7 +12,7 @@
 	<groupId>com.bc92.project</groupId>
 	<artifactId>user-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>auth-demo-1</name>
+	<name>user-service</name>
 	<description>user service</description>
 
 	<properties>

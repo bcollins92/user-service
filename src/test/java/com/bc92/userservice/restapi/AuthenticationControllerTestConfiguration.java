@@ -37,7 +37,7 @@ public class AuthenticationControllerTestConfiguration extends WebSecurityConfig
       @Value("${spring.redis.host}") final String redisHost) {
     logger.info("Constructor. redisPort: {}, redisHost: {}", redisPort, redisHost);
 
-    redisServer = new RedisServerBuilder().port(redisPort).setting("maxheap 64M").build();
+    redisServer = new RedisServerBuilder().port(redisPort).setting("maxheap 32M").build();
   }
 
   @PostConstruct
