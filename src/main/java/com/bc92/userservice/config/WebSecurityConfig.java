@@ -88,8 +88,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                           .password(this.passwordEncoder().encode("password"))
                           .roles("USER")
                           .build();
+    UserDetails user2 = User.builder()
+                          .username("TestOwner")
+                          .password(this.passwordEncoder().encode("password"))
+                          .roles("USER")
+                          .build();
 
-    return new InMemoryUserDetailsManager(user);
+    return new InMemoryUserDetailsManager(user, user2);
   }
 
   //@formatter:on
