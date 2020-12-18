@@ -10,9 +10,9 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  integration-test:
 
-    runs-on: ubuntu-20.04
+    runs-on: windows-2019
 
     steps:
     - uses: actions/checkout@v2
@@ -30,7 +30,11 @@ jobs:
       
     - name: Run tests with Maven
       run: mvn -B verify
- 
+  
+  code-quality:
+    runs-on: ubuntu-20.04
+    
+    steps:
     - name: SonarCloud Scan
       uses: SonarSource/sonarcloud-github-action@v1.4
       env:
