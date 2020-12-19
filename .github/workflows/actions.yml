@@ -32,7 +32,7 @@ jobs:
     - name: Run tests with Maven
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: mvn -B verify sonar:sonar
+      run: mvn -B clean verify
 
   sonar-scan:
 
@@ -56,4 +56,4 @@ jobs:
     - name: Run tests with Maven
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: mvn install -DskipTests sonar:sonar -Dsonar.login=${{ secrets.SONAR_TOKEN }} -Dsonar.coverage.jacoco.xmlReportPaths="./target/site/jacoco"
+      run: mvn -B clean install -DskipTests sonar:sonar -Dsonar.login=${{ secrets.SONAR_TOKEN }} -Dsonar.coverage.jacoco.xmlReportPaths="./target/site/jacoco"
