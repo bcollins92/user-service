@@ -21,24 +21,27 @@ import com.bc92.userservice.models.LoginRequest;
 public class CustomUsernamePasswordAuthenticationFilter
     extends UsernamePasswordAuthenticationFilter {
 
-  private final static Logger logger =
+  private static final Logger logger =
       LoggerFactory.getLogger(CustomUsernamePasswordAuthenticationFilter.class);
 
   private LoginRequest loginRequest;
 
   @Override
   protected String obtainUsername(final HttpServletRequest request) {
+    logger.trace(">> obtainUsername()");
     this.setLoginRequest(request);
+    logger.trace("<< obtainUsername()");
     return loginRequest.getUser();
   }
 
   @Override
   protected String obtainPassword(final HttpServletRequest request) {
+    logger.trace(">><< obtainPassword()");
     return loginRequest.getPassword();
   }
 
   private void setLoginRequest(final HttpServletRequest request) {
-
+    logger.trace(">> setLoginRequest()");
     try {
 
       StringBuilder builder = new StringBuilder();
@@ -50,6 +53,7 @@ public class CustomUsernamePasswordAuthenticationFilter
       }
 
       loginRequest = JsonUtilities.jsonToObject(builder.toString(), LoginRequest.class);
+      logger.debug("Login Request for user {} recieved.", loginRequest.getUser());
 
     } catch (IOException e) {
 
@@ -57,6 +61,8 @@ public class CustomUsernamePasswordAuthenticationFilter
       throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,
           "RequestBody for Login failed to be read");
     }
+
+    logger.trace("<< setLoginRequest()");
   }
 
 }

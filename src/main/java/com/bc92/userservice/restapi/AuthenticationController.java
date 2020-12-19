@@ -1,7 +1,5 @@
 package com.bc92.userservice.restapi;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,21 +10,19 @@ import com.bc92.projectsdk.constants.UserServiceConstants;
 @RestController
 public class AuthenticationController {
 
-  private final static Logger logger = LoggerFactory.getLogger(AuthenticationController.class);
-
   @PostMapping(UserServiceConstants.LOGIN_PATH)
   public ResponseEntity<Void> login() {
-    return new ResponseEntity<Void>(HttpStatus.OK);
+    return new ResponseEntity<>(HttpStatus.OK);
   }
 
   @GetMapping(UserServiceConstants.LOGOUT_PATH)
   public ResponseEntity<Void> logout() {
-    return new ResponseEntity<Void>(HttpStatus.OK);
+    return new ResponseEntity<>(HttpStatus.OK);
   }
 
   @GetMapping(UserServiceConstants.VALIDATE_TOKEN_PATH)
   public ResponseEntity<Void> validateToken() {
-    return new ResponseEntity<Void>(HttpStatus.OK);
+    return new ResponseEntity<>(HttpStatus.OK);
   }
 
 }

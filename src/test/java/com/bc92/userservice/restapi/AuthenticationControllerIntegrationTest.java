@@ -44,7 +44,7 @@ class AuthenticationControllerIntegrationTest {
    * @throws Exception
    */
   @Test
-  public void testSessionIsCreatedAndDestroyed() throws Exception {
+  void testSessionIsCreatedAndDestroyed() throws Exception {
     MvcResult mvcResult;
     Cookie cookie;
 
