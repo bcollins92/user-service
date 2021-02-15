@@ -59,13 +59,12 @@ jobs:
       run: mvn -B clean install -DskipTests sonar:sonar -Dsonar.login=${{ secrets.SONAR_TOKEN }} -Dsonar.coverage.jacoco.xmlReportPaths="./target/site/jacoco"
 
   publish-docker:
-    name: Push Docker image to GitHub Packages
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
       - name: Push to GitHub Packages
-        uses: docker/build-push-action@v1
+        uses: docker/build-push-action@v2
         with:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
