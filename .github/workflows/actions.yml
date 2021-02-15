@@ -87,7 +87,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: ghcr.io
           repository: bcollins92/artefacts
-          tags: bcollins92/user-service:latest
+          tags: ghcr.io/bcollins92/artefacts/user-service:latest
     
     
     
