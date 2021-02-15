@@ -92,7 +92,7 @@ jobs:
           file: ./Dockerfile
           registry: ghcr.io
           repository: bcollins92/artefacts
-          tags: ghcr.io/bcollins92/artefacts/user-service:latest
+          tags: ghcr.io/bcollins92/user-service:latest
           push: true
     
     
