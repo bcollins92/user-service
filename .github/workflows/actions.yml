@@ -77,14 +77,19 @@ jobs:
         env:
          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: mvn -B -U clean install -DskipTests
-        
+     
+      - name: Login to GitHub Packages 
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}   
+      
       - name: Push to GitHub Packages
         uses: docker/build-push-action@v2
         with:
           context: .
           file: ./Dockerfile
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
           registry: ghcr.io
           repository: bcollins92/artefacts
           tags: ghcr.io/bcollins92/artefacts/user-service:latest
